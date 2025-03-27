@@ -18,7 +18,7 @@ API REST que permite gestionar una lista negra global de emails. Proporciona fun
 
 ##  Endpoints  
 
-### 1. ➕ Agregar Email a Lista Negra  
+### 1. Agregar Email a Lista Negra  
 
 **Endpoint:** `POST /blacklists`  
 **Descripción:** Registra un email en la lista negra global junto con información adicional como el ID de la aplicación cliente y el motivo del bloqueo.
