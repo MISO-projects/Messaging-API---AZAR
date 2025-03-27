@@ -53,5 +53,21 @@ class BlacklistResource(Resource):
 
 api.add_resource(BlacklistResource, '/blacklists', '/blacklists/<string:email>')
 
+@app.route('/health')
+def health_check():
+    try:
+        # Verificar conexión a la base de datos
+        db.session.execute('SELECT 1')
+        return {
+            'status': 'healthy',
+            'database': 'connected'
+        }, 200
+    except Exception as e:
+        return {
+            'status': 'unhealthy',
+            'database': 'disconnected',
+            'error': str(e)
+        }, 500
+
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
