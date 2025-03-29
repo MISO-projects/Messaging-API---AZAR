@@ -1,0 +1,18 @@
+services:
+  db_blacklist:
+    volumes:
+      - ./db_data/pgdata:/var/lib/postgresql/data
+    container_name: db_blacklist
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 3s
+      timeout: 2s
+      retries: 5
+
