@@ -16,6 +16,51 @@ API REST que permite gestionar una lista negra global de emails. Proporciona fun
 - **Token:** `Bearer token123456`  
 - **Formato:** JSON  
 
+## Pruebas Unitarias 
+
+Esta sección describe cómo ejecutar las pruebas unitarias.
+
+### Requisitos
+
+Para ejecutar las pruebas, necesitas instalar las dependencias de prueba:
+
+```bash
+pip install -r requirements-test.txt
+```
+
+### Ejecutar las pruebas
+
+Para ejecutar todas las pruebas unitarias:
+
+```bash
+pytest
+```
+
+Para ejecutar las pruebas con cobertura:
+
+```bash
+pytest --cov=application
+```
+
+Para generar un reporte HTML de cobertura:
+
+```bash
+pytest --cov=application --cov-report=html
+```
+
+Esto generará un directorio `htmlcov` con el reporte de cobertura.
+
+### Estructura de las pruebas
+
+Las pruebas están organizadas en el directorio `tests/`:
+
+- `test_blacklist.py`: Pruebas para los endpoints de la API de blacklist
+- `conftest.py`: Configuración y fixtures para pytest
+
+### Mocks
+
+Las pruebas utilizan `unittest.mock` para simular la base de datos, lo que permite ejecutar las pruebas sin necesidad de una conexión a la base de datos real. 
+
 ##  Endpoints  
 
 ### 1. Agregar Email a Lista Negra  
