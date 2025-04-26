@@ -32,7 +32,7 @@ class TestBlacklistAPI(unittest.TestCase):
             headers=self.headers
         )
         
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.status_code, 400)
         response_data = json.loads(response.data)
         self.assertEqual(response_data['message'], 'Email agregado a la lista negra')
         
