@@ -4,6 +4,18 @@ phases:
   pre_build:
     commands:
       - pip install -r requirements.txt
+      - pip install -r requirements-test.txt
+  build:
+    on-failure: ABORT
+    commands:
+      - echo "Running unit tests with pytest"
+      - pytest --cov=application
+  post_build:
+    commands:
+      - echo "Tests passed successfully - proceeding with post-build"
+      - echo "Creating application zip archive"
+      - zip -r application.zip . -x "._*" -x ".idea/*" -x ".git/*"
+
 artifacts:
   files:
-    - '**/*'
+    - application.zip
