@@ -12,7 +12,7 @@ phases:
   post_build:
     commands:
       - echo "Creating application zip archive"
-      - zip -r application.zip . -x "._*" -x ".idea/*" -x ".git/*" -x
+      - zip -r application.zip . -x "._*" -x ".idea/*" -x ".git/*"
 
 artifacts:
   files:
