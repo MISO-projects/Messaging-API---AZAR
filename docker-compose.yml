@@ -15,4 +15,27 @@ services:
       interval: 3s
       timeout: 2s
       retries: 5
+  blacklist:
+    build: .
+    depends_on:
+      db_blacklist:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+      - "5679:5679" # Debug port
+    volumes:
+      - .:/app
+    environment:
+      FLASK_DEBUG: 1
+      RDS_USERNAME: postgres
+      RDS_PASSWORD: postgres
+      RDS_HOSTNAME: db_blacklist
+      RDS_PORT: 5432
+      RDS_DB_NAME: postgres
+    command:
+      - sh
+      - -c
+      - |
+        pip install debugpy
+        python -m debugpy --listen 0.0.0.0:5679 -m flask --app application run --host=0.0.0.0 -p 8000 --reload
 
