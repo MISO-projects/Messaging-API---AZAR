@@ -1,0 +1,40 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - pip install -r requirements.txt
+      - pip install -r requirements-test.txt
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 701275662629.dkr.ecr.us-east-1.amazonaws.com
+  build:
+    on-failure: ABORT
+    commands:
+      - echo "Running unit tests with pytest"
+      - pytest --cov=application
+      - echo Build started on `date`
+      - echo Building the Docker image...          
+      - docker build -t blacklist .
+      - docker tag blacklist:latest 701275662629.dkr.ecr.us-east-1.amazonaws.com/blacklist:latest
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push 701275662629.dkr.ecr.us-east-1.amazonaws.com/blacklist:latest
+      - echo Writing Image Definitions file...
+      - printf '[{"name":"container-blacklist","imageUri":"701275662629.dkr.ecr.us-east-1.amazonaws.com/blacklist:latest"}]' > imagedefinitions.json
+      - printf '{"ImageURI":"701275662629.dkr.ecr.us-east-1.amazonaws.com/blacklist:latest"}' > imageDetail.json
+      - cat imagedefinitions.json 
+artifacts:
+  files:
+    - '**/*'
+    - imagedefinitions.json
+    - imageDetail.json
+  secondary-artifacts:
+    DefinitionArtifact:
+      files:
+        - appspec.yaml
+        - taskdef.json
+    ImageArtifact:
+      files:
+        - imageDetail.json
