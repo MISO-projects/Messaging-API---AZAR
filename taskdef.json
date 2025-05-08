@@ -1,26 +1,45 @@
 {
-    "executionRoleArn": "arn:aws:iam::701275662629:role/ecsTaskExecutionRole",
-    "containerDefinitions": [
-      {
-        "portMappings": [
-          {
-            "hostPort": 8000,
-            "protocol": "tcp",
-            "containerPort": 8000
-          }
-        ],
+  "executionRoleArn": "arn:aws:iam::701275662629:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "portMappings": [
+        {
+          "hostPort": 8000,
+          "protocol": "tcp",
+          "containerPort": 8000
+        }
+      ],
+      "environment": [
+        {
+          "name": "RDS_PASSWORD",
+          "value": "blackl1st_pa$$word"
+        },
+        {
+          "name": "RDS_HOSTNAME",
+          "value": "database-blacklist.cavyw062suak.us-east-1.rds.amazonaws.com"
+        },
+        {
+          "name": "RDS_PORT",
+          "value": "5432"
+        },
+        {
+          "name": "RDS_USERNAME",
+          "value": "postgres"
+        },
+        {
+          "name": "RDS_DB_NAME",
+          "value": "postgres"
+        }
+      ],
+      "image": "<IMAGE1_NAME>",
+      "essential": true,
+      "name": "container-blacklist"
+    }
+  ],
 
-        "image": "<IMAGE1_NAME>",
-        "essential": true,
-        "name": "container-blacklist"
-      }
-    ],
-
-    "requiresCompatibilities": [
-      "FARGATE"
-    ],
-    "networkMode": "awsvpc",
-    "cpu": "512",
-    "memory": "1024",
-    "family": "task-blacklist"
-  }
+  "requiresCompatibilities": ["FARGATE"],
+  "networkMode": "awsvpc",
+  "cpu": "512",
+  "memory": "1024",
+  "family": "task-blacklist"
+}
