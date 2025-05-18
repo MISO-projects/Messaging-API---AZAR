@@ -6,6 +6,8 @@ COPY . /app/
 
 RUN pip install -r requirements.txt
 
+RUN pip install --no-cache-dir newrelic
+
 EXPOSE 8000
 
-CMD ["flask", "--app","application", "run", "-h", "0.0.0.0", "-p", "8000"]
+CMD ["newrelic-admin", "run-program", "flask", "--app", "application", "run", "-h", "0.0.0.0", "-p", "8000"]

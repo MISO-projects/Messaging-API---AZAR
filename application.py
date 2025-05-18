@@ -3,6 +3,8 @@ from flask_restful import Api, Resource
 from models.blacklist import db, BlacklistEntry
 import os
 from sqlalchemy.sql import text
+import newrelic.agent
+newrelic.agent.initialize()
 
 # Token estático para toda la aplicación
 API_TOKEN = "token123456"
