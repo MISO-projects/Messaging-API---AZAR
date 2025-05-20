@@ -121,3 +121,10 @@ Las pruebas utilizan `unittest.mock` para simular la base de datos, lo que permi
 - Se mantiene un registro de fecha y hora para cada entrada  
 - Los UUIDs deben ser válidos y únicos  
 - El motivo de bloqueo es opcional pero no puede exceder 255 caracteres  
+
+## Pruebas de carga
+Comando para ejecutar pruebas de carga con apache benchmarking
+
+```sh
+ab -n 5000 -c 1000 -t 10 -T 'application/json' -H "Authorization: Bearer token123456" -p blacklist_payload.json LB-blacklist-825409258.us-east-1.elb.amazonaws.com/blacklists
+```
