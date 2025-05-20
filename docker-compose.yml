@@ -32,10 +32,14 @@ services:
       RDS_HOSTNAME: db_blacklist
       RDS_PORT: 5432
       RDS_DB_NAME: postgres
+      NEW_RELIC_LICENSE_KEY: e99c6967721712d9be312729d85408feFFFFNRAL
+      NEW_RELIC_APP_NAME: Blacklist API
+      NEW_RELIC_MONITOR_MODE: true
+      NEW_RELIC_LOG_LEVEL: info
     command:
       - sh
       - -c
       - |
         pip install debugpy
-        python -m debugpy --listen 0.0.0.0:5679 -m flask --app application run --host=0.0.0.0 -p 8000 --reload
+        newrelic-admin run-program flask --app application run --host=0.0.0.0 -p 8000 --reload
 
